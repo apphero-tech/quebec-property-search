@@ -1,0 +1,200 @@
+<template>
+    <lightning-card title="Recherche de propriétés - Québec" icon-name="standard:location">
+        
+        <!-- Loading Configuration (au lieu d'afficher directement l'erreur) -->
+        <template if:true={isConfigurationChecking}>
+            <div class="slds-m-around_medium slds-text-align_center">
+                <lightning-spinner alternative-text="Vérification de la configuration..." size="small"></lightning-spinner>
+                <p class="slds-text-body_small slds-m-top_small">Vérification de la configuration...</p>
+            </div>
+        </template>
+
+        <!-- Configuration Error Message (affiché seulement après vérification) -->
+        <template if:true={isConfigurationError}>
+            <div class="slds-m-around_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">Erreur</span>
+                    <h2 class="slds-text-heading_small">Configuration requise</h2>
+                    <p>Ce composant n'est pas configuré. Veuillez contacter votre administrateur système pour configurer l'accès à l'API Quebec Property Search.</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- Loading Spinner pour les recherches -->
+        <template if:true={isLoading}>
+            <template if:true={isConfigurationComplete}>
+                <div class="slds-m-around_medium slds-text-align_center">
+                    <lightning-spinner alternative-text="Chargement..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+        </template>
+
+        <!-- Main Search Interface (affiché seulement si configuré) -->
+        <template if:true={isConfigurationComplete}>
+            <template if:false={isLoading}>
+                <div class="slds-m-around_medium">
+                    
+                    <!-- Search Type Selection -->
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label slds-text-heading_small">Type de recherche</label>
+                        <lightning-radio-group 
+                            name="searchType"
+                            options={searchTypeOptions}
+                            value={searchType}
+                            type="radio"
+                            onchange={handleSearchTypeChange}>
+                        </lightning-radio-group>
+                    </div>
+
+                    <!-- Municipality Selection -->
+                    <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-combobox
+                                name="municipality"
+                                label="Municipalité"
+                                value={selectedMunicipality}
+                                placeholder="Sélectionner une municipalité"
+                                options={municipalityOptions}
+                                onchange={handleInputChange}
+                                data-field="selectedMunicipality"
+                                required>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+
+                    <!-- Address Search Fields -->
+                    <template if:true={isAddressSearch}>
+                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input
+                                    type="text"
+                                    name="streetName"
+                                    label="Nom de la rue"
+                                    value={streetName}
+                                    placeholder="Ex: Saint-Charles"
+                                    onchange={handleInputChange}
+                                    data-field="streetName"
+                                    required>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input
+                                    type="text"
+                                    name="civicNumber"
+                                    label="Numéro civique"
+                                    value={civicNumber}
+                                    placeholder="Ex: 2755"
+                                    onchange={handleInputChange}
+                                    data-field="civicNumber"
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Owner Search Fields -->
+                    <template if:true={isOwnerSearch}>
+                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input
+                                    type="text"
+                                    name="ownerFirstName"
+                                    label="Prénom du propriétaire"
+                                    value={ownerFirstName}
+                                    placeholder="Ex: Rita"
+                                    onchange={handleInputChange}
+                                    data-field="ownerFirstName"
+                                    required>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input
+                                    type="text"
+                                    name="ownerLastName"
+                                    label="Nom de famille"
+                                    value={ownerLastName}
+                                    placeholder="Ex: Brien"
+                                    onchange={handleInputChange}
+                                    data-field="ownerLastName"
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Lot Search Fields -->
+                    <template if:true={isLotSearch}>
+                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input
+                                    type="text"
+                                    name="lotNumber"
+                                    label="Numéro de lot"
+                                    value={lotNumber}
+                                    placeholder="Ex: 1234567"
+                                    onchange={handleInputChange}
+                                    data-field="lotNumber"
+                                    field-level-help="Numéro de lot cadastral"
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Matricule Search Fields -->
+                    <template if:true={isMatriculeSearch}>
+                        <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input
+                                    type="text"
+                                    name="matricule"
+                                    label="Matricule"
+                                    value={matricule}
+                                    placeholder="Ex: 7734-20-9033"
+                                    onchange={handleInputChange}
+                                    data-field="matricule"
+                                    field-level-help="Matricule de la propriété"
+                                    required>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Search Button -->
+                    <div class="slds-m-bottom_medium">
+                        <lightning-button
+                            variant="brand"
+                            label="Rechercher"
+                            onclick={handleSearch}
+                            disabled={isLoading}>
+                        </lightning-button>
+                    </div>
+
+                    <!-- Search Results -->
+                    <template if:true={showResults}>
+                        <div class="slds-section slds-is-open">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Résultats de recherche">
+                                    Résultats de recherche ({searchResults.length})
+                                </span>
+                            </h3>
+                            <div class="slds-section__content">
+                                <template if:true={searchResults}>
+                                    <template for:each={searchResults} for:item="property">
+                                        <div key={property.id} class="slds-box slds-m-bottom_small">
+                                            <h4 class="slds-text-heading_small">Propriété trouvée</h4>
+                                            <p class="slds-text-body_small">ID: {property.id}</p>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template if:false={searchResults.length}>
+                                    <p>Aucun résultat trouvé.</p>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,17 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true,
+      "package": "Quebec Property Search",
+      "versionName": "Spring '25",
+      "versionNumber": "1.0.0.NEXT",
+      "versionDescription": "Système de recherche de propriétés pour les municipalités du Québec"
+    }
+  ],
+  "name": "QuebecPropertySearch",
+  "namespace": "qps",
+  "sourceApiVersion": "63.0",
+  "packageAliases": {},
+  "plugins": {}
+}

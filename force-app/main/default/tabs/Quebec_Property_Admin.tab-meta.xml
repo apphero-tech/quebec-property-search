@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Onglet d'administration pour Quebec Property Search</description>
+    <label>Quebec Property Admin</label>
+    <lwcComponent>quebecPropertyAdmin</lwcComponent>
+    <motif>Custom9: Shield</motif>
+</CustomTab>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permissions utilisateur standard pour Quebec Property Search</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Quebec Property User</label>
+    
+    <applicationVisibilities>
+        <application>Quebec_Property_Search_App</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Quebec_Property_Usage__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    
+    <classAccesses>
+        <apexClass>QuebecPropertyController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    
+    <tabSettings>
+        <tab>Quebec_Property_Search</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>
