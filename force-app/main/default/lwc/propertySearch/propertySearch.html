@@ -1,0 +1,81 @@
+<template>
+    <lightning-card title="Recherche de propriétés - Québec" icon-name="standard:location">
+        <div class="slds-m-around_medium">
+            
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center">
+                    <lightning-spinner alternative-text="Recherche en cours..."></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <!-- Formulaire de recherche -->
+                <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-combobox
+                            name="collection"
+                            label="Municipalité"
+                            value={selectedCollection}
+                            placeholder="Sélectionner une municipalité"
+                            options={collectionOptions}
+                            onchange={handleInputChange}
+                            data-field="selectedCollection"
+                            required>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-input
+                            type="text"
+                            name="streetName"
+                            label="Nom de la rue"
+                            value={streetName}
+                            placeholder="Ex: SAINT-CHARLES"
+                            onchange={handleInputChange}
+                            data-field="streetName"
+                            required>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                        <lightning-input
+                            type="text"
+                            name="civicNumber"
+                            label="Numéro civique"
+                            value={civicNumber}
+                            placeholder="Ex: 2755"
+                            onchange={handleInputChange}
+                            data-field="civicNumber"
+                            required>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-m-bottom_medium">
+                    <lightning-button
+                        variant="brand"
+                        label="Rechercher"
+                        onclick={handleSearch}>
+                    </lightning-button>
+                </div>
+
+                <!-- Résultats -->
+                <template if:true={showResults}>
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small">
+                                Résultats ({results.length})
+                            </span>
+                        </h3>
+                        <div class="slds-section__content">
+                            <template for:each={results} for:item="result">
+                                <div key={result._id} class="slds-box slds-m-bottom_small">
+                                    <p><strong>ID:</strong> {result._id}</p>
+                                    <pre>{result}</pre>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

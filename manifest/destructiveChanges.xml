@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Quebec_Property_Search</members>
+        <members>Quebec_Property_Admin</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>quebecPropertySearch</members>
+        <members>quebecPropertyAdmin</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>QuebecPropertyController</members>
+        <members>QuebecPropertyAPIService</members>
+        <members>QuebecPropertyException</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Quebec_Property_Search_App</members>
+        <name>CustomApplication</name>
+    </types>
+    <version>63.0</version>
+</Package>

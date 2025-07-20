@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Onglet pour la recherche de propriétés du Québec</description>
-    <label>Quebec Property Search</label>
-    <lwcComponent>quebecPropertySearch</lwcComponent>
-    <motif>Custom9: Checkerboard</motif>
-</CustomTab>

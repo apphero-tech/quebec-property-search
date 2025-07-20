@@ -9,9 +9,8 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>Quebec Property Search</label>
+    <label>Property Search</label>
     <navType>Standard</navType>
-    <tabs>Quebec_Property_Search</tabs>
-    <tabs>Quebec_Property_Admin</tabs>
+    <tabs>Property_Search</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>
