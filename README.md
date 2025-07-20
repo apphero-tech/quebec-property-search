@@ -1,19 +1,36 @@
-# Salesforce DX Project: Next Steps
+# Quebec Property Search
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+Application Salesforce moderne pour la recherche de propriétés dans les rôles d'évaluation foncière du Québec.
 
-## How Do You Plan to Deploy Your Changes?
+## Fonctionnalités
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+- 🔍 Recherche par adresse
+- 👤 Recherche par propriétaire  
+- ⚙️ Interface d'administration
+- 🔗 Intégration MongoDB Atlas
+- 🏛️ Support multi-municipalités
 
-## Configure Your Salesforce DX Project
+## Architecture
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+- **Frontend**: Lightning Web Components (LWC)
+- **Backend**: Apex classes avec intégration API
+- **Base de données**: MongoDB Atlas via AWS API Gateway
+- **API**: AWS Chalice avec authentification par clé
 
-## Read All About It
+## Installation
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
-# quebec-property-search
+1. Déployez le package dans votre org Salesforce
+2. Configurez les Named Credentials
+3. Assignez les permissions appropriées
+4. Configurez l'accès aux municipalités via Quebec Property Admin
+
+## Configuration
+
+Utilisez le composant `Quebec Property Admin` pour :
+- Configurer la clé API
+- Tester la connexion
+- Définir les municipalités autorisées
+
+## Support
+
+Développé par AppHero Tech
